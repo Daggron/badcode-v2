@@ -44,7 +44,7 @@ export async function getStaticProps(pageData) {
         require('remark-prism'),
         {
           transformInlineCode: true,
-        }
+        },
       ],
       rehypePlugins: [],
     },
