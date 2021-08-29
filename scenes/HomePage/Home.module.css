@@ -1,0 +1,16 @@
+.heading-line::before {
+  content: '';
+  height: 100%;
+  width: 5px;
+  position: absolute;
+  margin-right: 12px;
+  z-index: 0;
+}
+
+.bg-blue::before {
+  background: #61dafb;
+}
+
+.bg-green::before {
+  background: #42b8b3;
+}

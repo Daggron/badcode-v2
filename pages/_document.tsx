@@ -4,9 +4,14 @@ import Layout from '../components/Layout/Layout'
 class MyDocument extends Document {
   render() {
     return (
-      <Html className="dark">
-        <Head />
-        <body className="dark:bg-gray-800">
+      <Html>
+         <Head>
+          <link
+            rel="stylesheet"
+            href="https://unpkg.com/dracula-prism/dist/css/dracula-prism.css"
+          />
+         </Head>
+        <body>
           <Layout>
             <Main />
             <NextScript />

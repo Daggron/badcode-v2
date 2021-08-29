@@ -1,8 +1,9 @@
-import './Layout.css';
+import Header from "../Header";
 
 export default function Layout({ children }) {
   return (
-    <div className="flex container mx-auto">
+    <div className="container">
+      <Header />
       { children }
     </div>
   )

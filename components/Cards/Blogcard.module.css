@@ -1,0 +1,39 @@
+.blog-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.blog-card:hover {
+  cursor: pointer;
+}
+
+.blog-card:hover h4 {
+  color: rgba(245, 158, 11, 1);
+  transition: 500ms ease;
+}
+
+.blog-meta {
+  display: flex;
+  flex-direction: column;
+  margin-right: 12px;
+  max-width: 100%;
+}
+
+.img {
+  max-width: 320px;
+  border-radius: 8px;
+}
+
+@media screen and (max-width: 1025px) {
+  .blog-card {
+    flex-direction: column;
+  }
+
+  .blog-meta {
+    margin-bottom: 12px;
+  }
+}

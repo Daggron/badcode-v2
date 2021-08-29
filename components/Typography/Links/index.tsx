@@ -16,12 +16,15 @@ export interface LinkProps {
   type: 'internal' | 'external';
 }
 
+const className="text-purple-600 transform duration-500 ease-in-out hover:text-yellow-500";
+
 /**
  * A custom link component to maintain the type of link and design pattern across the code.
  * 
- * @param {string} text - The text to display on the link.
- * @param {string} href - The href of the link.
- * @param {string} type - The type of link. 
+ * @param {props} props - The properties of the component.
+ * @param {string} props.text - The text to display on the link.
+ * @param {string} props.href - The href of the link.
+ * @param {string} props.type - The type of link. 
 */
 export default function LinkComponent({ text, href, type }: LinkProps) {
   switch(type) {
@@ -29,7 +32,7 @@ export default function LinkComponent({ text, href, type }: LinkProps) {
       return (
         <Link href={href}>
           <a
-            className="text-blue-400 visited:text-purple-600 hover:text-blue-700 hover:shadow-lg"
+            className={className}
           >
             {text}
           </a>
@@ -41,7 +44,7 @@ export default function LinkComponent({ text, href, type }: LinkProps) {
           href={href}
           target="_blank"
           rel="noreferrer noopener"
-          className="text-blue-400 visited:text-purple-600 hover:text-blue-700 hover:shadow-lg"
+          className={className}
         >
           {text}
         </a>

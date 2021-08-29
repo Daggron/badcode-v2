@@ -1,3 +1,5 @@
 import LinkComponent from "./Links";
+import Paragraph from "./Paragraph";
+import * as Heading from './Heading';
 
-export { LinkComponent };
+export { LinkComponent , Paragraph, Heading };
