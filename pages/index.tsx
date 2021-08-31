@@ -1,4 +1,4 @@
-import { Head } from "next/document";
+import Head from "next/head";
 
 import HomePage from "../scenes/HomePage/Home";
 import { blogFrontMatter } from "../types/blogfrontMatter";
@@ -11,14 +11,14 @@ import { getAllPosts } from "../utils";
 export default function Index(props) {
   return (
     <div>
-     <>
+     <Head>
         <title>Home</title>
         <meta name="description" content="A blog about frontend development" />
         <meta name="title" content="Bad Code" />
         <meta name="author" content="Abhay Sharma (Daggron)" />
         <meta name="keywords" content="frontend blog, frontend development, react.js, vue.js, html,css" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-     </>
+     </Head>
      <HomePage
         blogMetaData={props.posts}
      />

@@ -4,21 +4,23 @@ import { BlogCard } from '../../components/Cards';
 import Line from '../../components/Line';
 import { Heading } from '../../components/Typography';
 
-import styles from './Home.module.css';
-
 type BlogPostMeta = {
-  title: string;
-  subtitle: string;
-  date: string;
-  description: string;
-  slug: string;
-  tags?: string[];
-  author?: string;
-  src?: string;
+  data: {
+    title: string;
+    subtitle: string;
+    date: string;
+    description: string;
+    slug: string;
+    tags?: string[];
+    author?: string;
+    src?: string;
+  };
+  filePath: string;
 }
+
 type Props = {
-  blogMetaData: BlogPostMeta[]; 
-};
+  blogMetaData: BlogPostMeta[];
+}
 
 function Home(props: Props) {
   const latestPost = props.blogMetaData[0];
