@@ -1,27 +1,22 @@
 import React from 'react';
-import { getAllPosts, getPostBySlug } from '../../utils/index';
-import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
-import { H1, H2, H3, H4, H5, H6 } from '../../components/Typography/Heading';
-import { LinkComponent } from '../../components/Typography';
 
-const components = {
-  H1,
-  H2,
-  H3,
-  H4,
-  H5,
-  H6,
-  LinkComponent,
-}
+import BlogPost from '../../scenes/BlogPost/BlogPost';
+import SeoManager from '../../components/SeoManager/SeoManager';
 
-function BlogPost(props) {
+import { getAllPosts, getPostBySlug } from '../../utils/index';
+
+function BlogPosts(props) {
   return (
-    <div>
-      <main>
-        <MDXRemote {...props.source} components={components} />
-      </main>
-    </div>
+    <>
+      <SeoManager
+        pageTitle={props.frontMatter.pageTitle}
+        title={props.frontMatter.title}
+        description={props.frontMatter.description}
+        tags={props.frontMatter.tags}
+      />
+      <BlogPost source={props.source} />
+    </>
   );
 }
 
@@ -59,4 +54,4 @@ export async function getStaticProps(pageData) {
   }
 }
 
-export default BlogPost;
+export default BlogPosts;

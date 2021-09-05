@@ -1,28 +1,25 @@
-import Head from "next/head";
-
 import HomePage from "../scenes/HomePage/Home";
 import { blogFrontMatter } from "../types/blogfrontMatter";
 
 import sortByDate from '../utils/sortByDate';
 import { getAllPosts } from "../utils";
+import SeoManager from "../components/SeoManager/SeoManager";
 
-
-
-export default function Index(props) {
+export default function Index(props: {posts: blogFrontMatter[]}) {
   return (
-    <div>
-     <Head>
-        <title>Home</title>
-        <meta name="description" content="A blog about frontend development" />
-        <meta name="title" content="Bad Code" />
-        <meta name="author" content="Abhay Sharma (Daggron)" />
-        <meta name="keywords" content="frontend blog, frontend development, react.js, vue.js, html,css" />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-     </Head>
-     <HomePage
-        blogMetaData={props.posts}
+    <>
+     <SeoManager
+        pageTitle="Home"
+        title="A frontend development blog by Abhay Sharma"
+        description="This is a frontend Blog by Abhay Sharma and it is used as a platform to share knoweldge and learnings, i got with my experience"
+        tags="Frontend Development, React.js, Javascript, State Management, Html, css"
      />
-    </div>
+     <main>
+      <HomePage
+        blogMetaData={props.posts}
+      />
+     </main>
+    </>
   )
 }
 
