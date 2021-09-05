@@ -36,7 +36,7 @@ const Seo = (props: SeoManagerProps) => (
 
       <meta property="og:description" content={props.description} />
 
-      <meta property="og:image" content="/cover.png" />
+      <meta property="og:image" content="/public/cover.png" />
 
       <meta property="og:url" content={`https://badcode.dev${props.slug}`} />
 
