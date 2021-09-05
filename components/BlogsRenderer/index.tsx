@@ -1,10 +1,10 @@
 import React from 'react';
 import { BlogCard } from "../Cards";
-import { blogFrontMatter } from "../../types/blogfrontMatter";
+import { blogPostData } from "../../types/blogfrontMatter";
 import Link from 'next/link';
 
 type Props = {
-  blogs: blogFrontMatter[]
+  blogs: blogPostData[]
 }
 
 /**

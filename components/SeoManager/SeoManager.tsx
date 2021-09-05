@@ -10,6 +10,10 @@ type SeoManagerProps = {
   description: string;
   /** used for keywords of the page for search engine indexing */
   tags: string;
+  /**
+   * the url of the page
+   */
+  slug: string;
 }
 
 const Seo = (props: SeoManagerProps) => (
@@ -34,7 +38,7 @@ const Seo = (props: SeoManagerProps) => (
 
       <meta property="og:image" content="/cover.png" />
 
-      <meta property="og:url" content="https://badcode.dev" />
+      <meta property="og:url" content={`https://badcode.dev${props.slug}`} />
 
       <meta property="og:site_name" content="badcode" />
 

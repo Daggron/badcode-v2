@@ -5,15 +5,17 @@ import BlogPost from '../../scenes/BlogPost/BlogPost';
 import SeoManager from '../../components/SeoManager/SeoManager';
 
 import { getAllPosts, getPostBySlug } from '../../utils/index';
+import { blogFrontMatter } from '../../types/blogfrontMatter';
 
-function BlogPosts(props) {
+function BlogPosts(props: {source: any, frontMatter: blogFrontMatter }) {
   return (
     <>
       <SeoManager
         pageTitle={props.frontMatter.pageTitle}
         title={props.frontMatter.title}
         description={props.frontMatter.description}
-        tags={props.frontMatter.tags}
+        tags={props.frontMatter.tags.toString()}
+        slug={props.frontMatter.slug}
       />
       <BlogPost source={props.source} />
     </>
