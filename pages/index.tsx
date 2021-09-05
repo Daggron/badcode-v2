@@ -5,14 +5,16 @@ import sortByDate from '../utils/sortByDate';
 import { getAllPosts } from "../utils";
 import SeoManager from "../components/SeoManager/SeoManager";
 
+import metaData from '../data/metaData';
+
 export default function Index(props: {posts: blogPostData[]}) {
   return (
     <>
      <SeoManager
-        pageTitle="Home"
-        title="A frontend development blog by Abhay Sharma"
-        description="This is a frontend Blog by Abhay Sharma and it is used as a platform to share knoweldge and learnings, i got with my experience"
-        tags="Frontend Development, React.js, Javascript, State Management, Html, css"
+        pageTitle={metaData.pageTitle}
+        title={metaData.title}
+        description={metaData.description}
+        tags={metaData.tags}
         slug="/"
      />
      <main>

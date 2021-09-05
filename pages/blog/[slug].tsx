@@ -11,7 +11,7 @@ function BlogPosts(props: {source: any, frontMatter: blogFrontMatter }) {
   return (
     <>
       <SeoManager
-        pageTitle={props.frontMatter.pageTitle}
+        pageTitle={`Bad Code | ${props.frontMatter.pageTitle}`}
         title={props.frontMatter.title}
         description={props.frontMatter.description}
         tags={props.frontMatter.tags.toString()}
