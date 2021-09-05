@@ -1,6 +1,5 @@
 import React from 'react';
 import BlogsRenderer from '../../components/BlogsRenderer';
-import { BlogCard } from '../../components/Cards';
 import Line from '../../components/Line';
 import { Heading } from '../../components/Typography';
 
@@ -14,6 +13,7 @@ type BlogPostMeta = {
     tags?: string[];
     author?: string;
     src?: string;
+    pageTitle: string;
   };
   filePath: string;
 }
