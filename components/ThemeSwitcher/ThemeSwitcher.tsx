@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { getTheme, switchTheme, toggleTheme } from '../../utils/toggleTheme';
+import { getTheme, switchTheme } from '../../utils/toggleTheme';
 
 import styles from './ThemeSwitcher.module.css';
 
