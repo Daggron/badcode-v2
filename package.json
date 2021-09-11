@@ -6,7 +6,7 @@
     "start": "next start",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "prettier": "prettier --config .prettierrc --write \"**/*.{js,jsx,ts,tsx,json}\""
+    "prettier": "prettier --config .prettierrc --write \"**/*.{js,jsx,ts,tsx,json, mdx}\""
   },
   "dependencies": {
     "@mdx-js/react": "^1.6.22",

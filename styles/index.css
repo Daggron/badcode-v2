@@ -2,8 +2,8 @@
 @import url('./typography.css');
 
 :root {
-  --text-color-heading: #3F3F44;
-  --text-color-normal: #374151;
+  --text-color-normal: #3F3F44;
+  --text-color-heading: #374151;
   --text-color-light: #4B5563;
   --link-color: rgba(124,58,237,1);
   --link-hover-color: rgba(245,158,11, 1);
@@ -13,8 +13,8 @@
 }
 
 [data-theme="dark"] {
-  --text-color-heading: #EEE;
-  --text-color-normal: #CBD5E0;
+  --text-color-normal: #EEE;
+  --text-color-heading: #CBD5E0;
   --text-color-light: #7F8EA3;
   --link-color: rgba(245,158,11, 1);
   --link-hover-color: rgba(124,58,237,1);
@@ -31,6 +31,7 @@
 body {
   font-family: 'IBM Plex Sans', sans-serif;
   background-color: var(--background-color);
+  color: var(--text-color-light);
 }
 
 a {
@@ -42,15 +43,21 @@ a:hover {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--text-color-heading);
+  color: var(--text-color-normal);
 }
 
 p {
   color: var(--text-color-light);
+  font-size: 18px;
+  line-height: 1.69;
+}
+
+.text-phrase {
+  color: var(--link-color)
 }
 
 .heading {
-  color: var(--text-color-normal);
+  color: var(--text-color-heading);
 }
 
 .font-medium {
@@ -59,6 +66,10 @@ p {
 
 .lh-157 {
   line-height: 1.57;
+}
+
+.lh-169 {
+  line-height: 1.69;
 }
 
 .mb4 {

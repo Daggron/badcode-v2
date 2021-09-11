@@ -9,7 +9,7 @@ function Intro() {
         <HandWave />
       </div>
       <p>
-        I’m Abhay. I&apos;m a developer, I work at &nbsp;
+        I’m Abhay. I&apos;m a Software Developer by profession, I work at &nbsp;
         <LinkComponent
           type="external"
           href="https://smallcase.com"

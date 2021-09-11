@@ -1,0 +1,267 @@
+---
+title: State updates in react.
+subtitle: How to use state in react to solve problems not to add bugs.
+date: "2021-12-09"
+src: ""
+slug: "state-updates-in-react"
+description: "Have you ever noticed that when sometimes you update your state it only re-render component once\n
+but sometimes if you do multiple setStates it actually re-renders your component multiple times\n
+depending on how many times you call setState function. In this blog I'll talk about why this
+\n happens how to fix this multiple re-renders for better performance and less bugs"
+tags: [state updates in react, react, web-development, re-rendering]
+pageTitle: "State updates in React"
+---
+
+import { H1, H2, H3, H4, H5, H6 } from '../components/Typography/Heading';
+
+<div className="mb24">
+  <H1 text="State Updates in React" />
+</div>
+
+<H2 className="mb-4" text="What is a state" />
+
+
+  A state is a data container that contains the data for a component throughout
+  its lifecycle. A state can contain any data and can be used anywhere in the component.‌
+  React do a great job with the state and every time the state is changed in react
+  it performs a rerender of the component to update the value of the state throughout
+  the component. But these updates are asynchronous and a state update will be done after
+  the function which is updating the state is executed.‌
+
+
+For e.g
+
+```js
+const [counter, setCounter] = useState(0);
+```
+
+So here in this example, the initial value of the counter is 0.&nbsp;
+<strong>Please note,</strong> the counter here is a state variable.
+
+‌So if i try to update the state here like this
+
+```js
+counter = 1
+```
+it will be updated but not communicated to the component that the state is updated
+and you need to recalculate all your logic which you are managing with this state.
+So how to update the state correctly.
+Well, the answer is simple.
+By using the <span className="font-medium text-phrase">setCounter</span> function.‌
+
+So if I do it like this
+
+```js
+  setCounter(1)‌
+```
+
+  Then react will re-render the component and all the logic which is
+  depended upon the counter variable will be recalculated and the value for the state
+  is updated at all respective places.‌
+
+  So React state updates are async what does that mean‌
+  So let me give you a quick example of this, try doing this in your code
+
+  ```js
+    function foo() {
+      setCounter(5);
+      console.log(counter);
+    }‌
+  ```
+
+  as the previous value of count was 0 and if you execute this function
+  the value of counter printed in the function will be 0 and not 5.
+  So why did this happen? The reason is simple because the updates are async and
+  moreover react will execute the function
+  <span className="font-medium text-phrase">setCounter </span>
+  after the foo is executed. So why react do it like this why not updating the state
+  first and then do the other tasks.‌
+
+  It's like this because of performance suppose you have done this setState multiple
+  times in the function and then react has to re-render the component each time the state
+  is updated within the function which costs performance. So that's why react executes
+  all the setState functions after the parent function is executed which means all the
+  state updates are async and batched in nature.
+
+  So this means that the react state updates will be triggered after the function has
+  finished its execution and then react will execute all the setState function in the
+  parent function and one by one and after all functions done execution react will cause
+  a re-render to update the state value related with the respective setState function‌
+
+
+<H4 className="mb-4" text="Batched Updates, huh …" />
+
+So it is clear that if you do multiple setState in a function
+they will be batched and will be executed one by one. So this creates some bug/problem in the code
+like say we want to do something like this
+
+
+```js
+// Let us suppose the initial value of counter is 0
+function foo() {
+  setCounter(counter + 1)
+  setCounter(counter + 2)
+  setCounter(counter + 3)
+}‌
+```
+
+  So if you look at this code we are updating the counter thrice and the expected result should be 6.
+  But if you check the output of this code the result will be 3.
+
+  Can you guess the reason …
+
+  ‌Yes, you get it right it's because of the async batched updates of react.‌
+
+  So what react has done here is it took all the setCounter function and executed them one by one but
+  while executing react didn't trigger a re-render to update the value of the counter in the component so
+  the counter's value remains 0 for all the 3 setCounter functions and the end result was 3. We discussed earlier
+  why react don't re-render the component on each state update when there are multiple state updates happening
+  inside a function it's because of performance.‌
+
+  So this introduced a bug in the code how to solve it.‌
+
+  So there can be multiple ways to solve this but there is one way which react provides to solve it in the
+  best react way possible.‌
+
+  So React is smart and it knows its pitfall of batching the state updates. So react comes up with a callback
+  function in setState so that the setState has access to the previous state of the component and bugs like these
+  don't occur in the codebase and keeping the code the same and maintain the performance.‌
+
+  So here is the solution for this
+
+```js
+function foo() {
+  setCounter((prevState) => prevState + 1);
+  setCounter((prevState) => prevState + 2);
+  setCounter((prevState) => prevState + 3);
+}
+// Now the value of the counter will be 6 as expected‌
+```
+
+  So react takes a callback function in setState and pass the previous state of the component as a param to provide
+  access to the latest value of the previous state so that the updates which depend upon the previous state values can
+  be performed efficiently.‌
+
+<H3 className="mb-4" text="But are all state updates batched?‌" />
+
+  The answer is no.
+  Only state updates inside a <span className="text-phrase">Synthetic event </span>
+  and <span className="text-prase">React lifecycle methods</span> are batched.
+  The reason is simple because for normal js functions react has no idea when they
+  are triggered and when the execution is complete so it doesn't know how many states updates
+  are triggered from it. A cool example of this will be‌
+
+  <span className="text-phrase">setState </span>
+  inside <span className="text-prase">setTimeOut</span> and <span className="text-phrase">Promises. All </span>.
+  State updates inside promises and js inbuilt functions will be non-batched and cause a re-render every time the state
+  is updated inside them.‌
+
+<H3 className="mb-4" text="What does this mean??" />
+
+  So if you run the above code then React will cause 2 re-renders of component one for updating the name and
+  one for updating loading status and these updates won't be batched. But they still will be async.‌
+
+  So this will cause a problem for as it has caused for me. So what we were trying to do is making an api call
+  to  one of our services at <LinkComponent type="external" text="smallcase" href="https://smallcase.com" /> and
+  based on the data provided by that service we were trying to show some data to user.
+
+  But it caused some bugs in our code the code was written like this
+
+```js
+  fetch('// ...some service url')
+  .then(res => res.json())
+  .then(data => {
+    setIsLoading(false);
+    setData(data);
+    setErrors(false);
+  })
+  .catch(err => {
+    // ... Log error to error logging service
+    setIsLoading(false);
+    setErrors(false);
+  })
+```
+
+and when were trying to read the data in our component was like this
+
+```jsx
+  function OurComponent() {
+    if (isLoading) {
+      return <LoaderComponent />
+    }
+    if (!isLoading) {
+      return <ChildComponent href={data.href} {...restOfData} />
+    }
+  }
+```
+
+and this caused our app to break. This was because the loading state was set to false
+and it caused a re-render and since the data was not set by the <span className="text-phrase">setData </span>
+function so there was no data and were trying to get the some properties out of it.
+
+  So what most of the new devs could have done here is they could have written the code like this
+
+  ```js
+    fetch('...some service url')
+    .then(res => res.json())
+    .then(data => {
+      setData(data);
+      setErrors(false);
+      setIsLoading(false);
+    })
+    .catch(err => {
+      // ... Log error to error logging service
+      setErrors(false);
+      setIsLoading(false);
+    });
+  ```
+  This at the top looks like it has solved the problem but it's not the best way to do it. Again this will
+  still have 3 re-renders of the component.‌ And it is possible that someone may come and he updates the function
+  and put back <span className="text-phrase">setLoading</span> to top and then it will again crash your app.
+
+  So what we did was we used <LinkComponent type="external" text="useReducer" href="https://reactjs.org/docs/hooks-reference.html#usereducer/?ref=badcode.dev" />
+  as these states were interlinked and need to be updated at same time so this was a use case for <strong>useReducer</strong>.
+  So we wrote a reducer like this
+
+  ```js
+  function myCustomReducer(state, action) {
+    switch (action.type) {
+      case 'loading':
+        return {
+          ...state,
+          isLoading: true,
+        }
+      case 'success':
+        return {
+          ...state,
+          isLoading: false,
+          data: action.data,
+          hasError: false,
+        }
+      case 'error':
+        return {
+          ...state,
+          isLoading: false,
+          hasError: true,
+        }
+    }
+  }
+  ```
+
+  and used it to update our state based on the response of the api call.
+
+  ```js
+   
+    fetch('// ...some service url')
+    .then(res => res.json())
+    .then(data => {
+      dispatch({type: 'sucess', data: data});
+    })
+    .catch(err => {
+      // ... Log error to error logging service
+      dispatch({type: 'error'});
+    });
+  ```
+  And now the code is much cleaner and we have a single reducer and it updates the state based on the response of the api call.
+  and no more multiple re-renders, and no more bugs.‌ And anyone can come and may change the order inside reducer and
+  it will still work.‌
