@@ -28,24 +28,18 @@ type Props = {
 };
 
 function BlogCard(props: Props) {
-    return (
-      <div className={styles['blog-card']}>
-        <div className={styles['blog-meta']}>
-          <div className="flex-col mb-2">
-            <BlogMeta
-              title={props.title}
-              subtitle={props.subtitle}
-            />
-          </div>
-          <BlogDescription
-            description={props.description}
-          />
+  return (
+    <div className={styles['blog-card']}>
+      <div className={styles['blog-meta']}>
+        <div className="flex-col mb-2">
+          <BlogMeta title={props.title} subtitle={props.subtitle} />
         </div>
+        <BlogDescription description={props.description} />
       </div>
-    );
+    </div>
+  );
 }
 
-// https://images.unsplash.com/photo-1628191079535-d1900add3533?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80
 BlogCard.defaultProps = {
   src: null,
   tags: null,

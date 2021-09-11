@@ -1,0 +1,27 @@
+.themeSwitchWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.toggle {
+  border-radius: 8px;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 12px;
+  transform: all 1s ease-in-out;
+  background-color: var(--theme-toggler-bg-color);
+}
+
+.toggle input {
+  display: none;
+}
+
+.toggle:focus:after {
+  border-radius: 50%;
+}
+
+
+.toggle svg {
+  fill: var(--link-color);
+  stroke: var(--link-hover-color);
+}

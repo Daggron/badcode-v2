@@ -28,26 +28,19 @@ type Props = {
 const CompactBlogCard = (props: Props) => {
   return (
     <div className="flex-col">
-      {
-        props.src ? (
-          <div className="flex-1 mb-4">
-            <img src={props.src} className="rounded-xl" alt="" />
-          </div>
-        ) : null
-      }
+      {props.src ? (
+        <div className="flex-1 mb-4">
+          <img src={props.src} className="rounded-xl" alt="" />
+        </div>
+      ) : null}
       <div className="flex-1 mb-2">
-        <BlogMeta
-          title={props.title}
-          subtitle={props.subtitle}
-        />
+        <BlogMeta title={props.title} subtitle={props.subtitle} />
       </div>
       <div className="flex-1">
-        <BlogDescription
-          description={props.description}
-        />
+        <BlogDescription description={props.description} />
       </div>
     </div>
-  )
+  );
 }
 
 export default React.memo(CompactBlogCard);

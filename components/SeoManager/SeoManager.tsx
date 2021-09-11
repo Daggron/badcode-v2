@@ -15,7 +15,7 @@ type SeoManagerProps = {
    * the url of the page
    */
   slug: string;
-}
+};
 
 const Seo = (props: SeoManagerProps) => (
   <>
@@ -23,13 +23,13 @@ const Seo = (props: SeoManagerProps) => (
       <title>{props.pageTitle}</title>
 
       <meta name="title" content={props.title} />
-      
+
       <meta name="description" content={props.description} />
-      
+
       <meta name="keywords" content={props.tags} />
-      
+
       <meta name="author" content="Abhay Sharma, daggron" />
-      
+
       {/* Og tags */}
       <meta property="og:type" content="article" />
 
@@ -55,7 +55,6 @@ const Seo = (props: SeoManagerProps) => (
       <meta name="twitter:card" content={metaData.twitter.cardType} />
 
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     </Head>
   </>
 );

@@ -1,6 +1,5 @@
 import React from 'react';
 import BlogsRenderer from '../../components/BlogsRenderer';
-import Line from '../../components/Line';
 import { Heading } from '../../components/Typography';
 
 type BlogPostMeta = {
@@ -16,32 +15,20 @@ type BlogPostMeta = {
     pageTitle: string;
   };
   filePath: string;
-}
+};
 
 type Props = {
   blogMetaData: BlogPostMeta[];
-}
+};
 
 function Home(props: Props) {
-  const latestPost = props.blogMetaData[0];
   return (
-    <div>
-      <Heading.H2 text="Latest Post" className="mb12" />
-      <div className="mb12">
-        <BlogsRenderer blogs={[latestPost]} />
+    <>
+      <div className="mb32">
+        <Heading.H2 text="Blog" className="mb12" />
+        <BlogsRenderer blogs={props.blogMetaData} />
       </div>
-      {
-        props.blogMetaData.length > 1  ? (
-          <div className="mb12">
-            <Line />
-            <Heading.H2 text="All Posts" className="mb12" />
-            <BlogsRenderer blogs={props.blogMetaData.slice(1)} />
-          </div>
-        ) : (
-          null
-        )
-      }
-    </div>
+    </>
   );
 }
 

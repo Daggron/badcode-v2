@@ -16,7 +16,7 @@ export interface LinkProps {
   type: 'internal' | 'external';
 }
 
-const className="text-purple-600 transform duration-500 ease-in-out hover:text-yellow-500";
+const className = 'transform duration-500 ease-in-out';
 
 /**
  * A custom link component to maintain the type of link and design pattern across the code.
