@@ -14,8 +14,8 @@
 
 [data-theme="dark"] {
   --text-color-normal: #EEE;
-  --text-color-heading: #CBD5E0;
-  --text-color-light: #7F8EA3;
+  --text-color-heading: #d2dbe6;
+  --text-color-light: #c1c5cc;
   --link-color: rgba(245,158,11, 1);
   --link-hover-color: rgba(124,58,237,1);
   --background-color: #1A202C;
@@ -94,6 +94,10 @@ p {
 
 .ml12 {
   margin-left: 12px;
+}
+
+.mr4 {
+  margin-right: 4px;
 }
 
 .mr12 {

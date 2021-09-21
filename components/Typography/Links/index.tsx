@@ -14,30 +14,37 @@ export interface LinkProps {
    * for extrenal website links.
    */
   type: 'internal' | 'external';
+
+  /** Aria label for link when custom aria label is required */
+  ariaLabel?: string;
 }
 
 const className = 'transform duration-500 ease-in-out';
 
 /**
  * A custom link component to maintain the type of link and design pattern across the code.
- * 
+ *
  * @param {props} props - The properties of the component.
  * @param {string} props.text - The text to display on the link.
  * @param {string} props.href - The href of the link.
- * @param {string} props.type - The type of link. 
-*/
-export default function LinkComponent({ text, href, type }: LinkProps) {
-  switch(type) {
+ * @param {string} props.type - The type of link.
+ * @param {string} [props.ariaLabel] - The aria label for the link.
+ */
+export default function LinkComponent({
+  text,
+  href,
+  type,
+  ariaLabel,
+}: LinkProps) {
+  switch (type) {
     case 'internal':
       return (
         <Link href={href}>
-          <a
-            className={className}
-          >
+          <a className={className} aria-label={ariaLabel ? ariaLabel : text}>
             {text}
           </a>
         </Link>
-      )
+      );
     case 'external':
       return (
         <a
@@ -45,10 +52,12 @@ export default function LinkComponent({ text, href, type }: LinkProps) {
           target="_blank"
           rel="noreferrer noopener"
           className={className}
+          aria-label={ariaLabel ? ariaLabel : text}
         >
           {text}
         </a>
-      )
-    default: return null;
+      );
+    default:
+      return null;
   }
 }

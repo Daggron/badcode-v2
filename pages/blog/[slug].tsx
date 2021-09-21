@@ -38,22 +38,24 @@ export async function getStaticProps(pageData) {
   const mdxSource = await serialize(postData.content, {
     mdxOptions: {
       remarkPlugins: [
-        require('remark-prism'),
-        {
-          transformInlineCode: true,
-        },
+        [
+          require('remark-prism'),
+          {
+            transformInlineCode: true,
+          },
+        ],
       ],
       rehypePlugins: [],
     },
     scope: postData.data,
-  })
+  });
 
   return {
     props: {
       source: mdxSource,
       frontMatter: postData.data,
-    }
-  }
+    },
+  };
 }
 
 export default BlogPosts;

@@ -1,13 +1,22 @@
+import SpotifyLogo from '../Spotify/SpotifySvg';
 import Line from '../Line';
 import { LinkComponent } from '../Typography';
+import { useEffect } from 'react';
+import NowPlaying from '../Spotify/NowPlaying';
 
 export default function Footer() {
+  useEffect(() => {
+    fetch('/api/fetchCurrentPlayingSong')
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+      });
+  }, []);
+
   return (
     <footer className="Footer mt-12">
       <Line />
-      <p className="mb-8">
-        &copy; {new Date().getFullYear()} by Abhay Sharma. All rights reserved.
-      </p>
+      <NowPlaying />
       <div className="flex">
         <ul className="mr-32 lh-169">
           <li>
