@@ -4,10 +4,10 @@ subtitle: How to use state in react to solve problems not to add bugs.
 date: "2021-12-09"
 src: ""
 slug: "state-updates-in-react"
-description: "Have you ever noticed that when sometimes you update your state it only re-render component once\n
+description: "Have you ever noticed that when sometimes you update your state it only re-renders component once\n
 but sometimes if you do multiple setStates it actually re-renders your component multiple times\n
 depending on how many times you call setState function. In this blog I'll talk about why this
-\n happens how to fix this multiple re-renders for better performance and less bugs"
+\n happens how to fix these multiple re-renders for better performance and less bugs"
 tags: [state updates in react, react, web-development, re-rendering]
 pageTitle: "State updates in React"
 ---
@@ -18,48 +18,47 @@ import { H1, H2, H3, H4, H5, H6 } from '../components/Typography/Heading';
   <H1 text="State Updates in React" />
 </div>
 
-<H2 className="mb-4" text="What is a state" />
+<H2 className="mb-4" text="What is a state?" />
 
 
   A state is a data container that contains the data for a component throughout
   its lifecycle. A state can contain any data and can be used anywhere in the component.‌
-  React do a great job with the state and every time the state is changed in react
+  React does a great job with the state and every time the state is changed in react
   it performs a rerender of the component to update the value of the state throughout
-  the component. But these updates are asynchronous and a state update will be done after
-  the function which is updating the state is executed.‌
+  the component. However these updates are asynchronous and a state update will be done after
+  the function which is updating the state is executed.‌ For e.g
 
+  ```js
+  const [counter, setCounter] = useState(0);
+  ```
+  <p className="my-8">
+    So here in this example, the initial value of the counter is 0.&nbsp;
+    <strong>Please note,</strong> the counter here is a state variable.
+  </p>
 
-For e.g
-
-```js
-const [counter, setCounter] = useState(0);
-```
-
-So here in this example, the initial value of the counter is 0.&nbsp;
-<strong>Please note,</strong> the counter here is a state variable.
-
-‌So if i try to update the state here like this
+  ‌So if I try to update the state here like this
 
 ```js
 counter = 1
 ```
-it will be updated but not communicated to the component that the state is updated
-and you need to recalculate all your logic which you are managing with this state.
-So how to update the state correctly.
-Well, the answer is simple.
-By using the <span className="font-medium text-phrase">setCounter</span> function.‌
 
-So if I do it like this
+  it will be updated but not communicated to the component that the state is updated
+  and you need to recalculate all your logic which you are managing with this state.
+  So how to update the state correctly.
+  Well, the answer is simple.
+  By using the <span className="font-medium text-phrase">setCounter</span> function.‌
 
-```js
-  setCounter(1)‌
-```
+  So if I do it like this
+
+  ```js
+    setCounter(1)‌
+  ```
 
   Then react will re-render the component and all the logic which is
-  depended upon the counter variable will be recalculated and the value for the state
+  dependent upon the counter variable will be recalculated and the value for the state
   is updated at all respective places.‌
 
-  So React state updates are async what does that mean‌
+  So React state updates are async, but what does that mean‌?
   So let me give you a quick example of this, try doing this in your code
 
   ```js
@@ -74,8 +73,8 @@ So if I do it like this
   So why did this happen? The reason is simple because the updates are async and
   moreover react will execute the function
   <span className="font-medium text-phrase">setCounter </span>
-  after the foo is executed. So why react do it like this why not updating the state
-  first and then do the other tasks.‌
+  after the foo is executed. So why does react do it this way instead of updating
+  the state first and then performing other tasks?
 
   It's like this because of performance suppose you have done this setState multiple
   times in the function and then react has to re-render the component each time the state
@@ -88,12 +87,12 @@ So if I do it like this
   parent function and one by one and after all functions done execution react will cause
   a re-render to update the state value related with the respective setState function‌
 
-
+<div className="mb-4" />
 <H4 className="mb-4" text="Batched Updates, huh …" />
 
-So it is clear that if you do multiple setState in a function
-they will be batched and will be executed one by one. So this creates some bug/problem in the code
-like say we want to do something like this
+  So it is clear that if you do multiple setState in a function
+  they will be batched and will be executed one by one. So this creates some bug/problem in the code
+  like say we want to do something like this
 
 
 ```js
@@ -142,6 +141,7 @@ function foo() {
   access to the latest value of the previous state so that the updates which depend upon the previous state values can
   be performed efficiently.‌
 
+<div className="mb-4" />
 <H3 className="mb-4" text="But are all state updates batched?‌" />
 
   The answer is no.
@@ -149,13 +149,12 @@ function foo() {
   and <span className="text-prase">React lifecycle methods</span> are batched.
   The reason is simple because for normal js functions react has no idea when they
   are triggered and when the execution is complete so it doesn't know how many states updates
-  are triggered from it. A cool example of this will be‌
-
-  <span className="text-phrase">setState </span>
+  are triggered from it. A cool example of this will be‌ <span className="text-phrase">setState </span>
   inside <span className="text-prase">setTimeOut</span> and <span className="text-phrase">Promises. All </span>.
   State updates inside promises and js inbuilt functions will be non-batched and cause a re-render every time the state
   is updated inside them.‌
 
+<div className="mb-4" />
 <H3 className="mb-4" text="What does this mean??" />
 
   So if you run the above code then React will cause 2 re-renders of component one for updating the name and
@@ -195,9 +194,9 @@ and when were trying to read the data in our component was like this
   }
 ```
 
-and this caused our app to break. This was because the loading state was set to false
-and it caused a re-render and since the data was not set by the <span className="text-phrase">setData </span>
-function so there was no data and were trying to get the some properties out of it.
+  and this caused our app to break. This was because the loading state was set to false
+  and it caused a re-render and since the data was not set by the <span className="text-phrase">setData </span>
+  function so there was no data and were trying to get the some properties out of it.
 
   So what most of the new devs could have done here is they could have written the code like this
 

@@ -16,7 +16,7 @@ const components = {
 
 function BlogPost(props) {
   return (
-    <main>
+    <main className="content">
       <MDXRemote {...props.source} components={components} />
     </main>
   );

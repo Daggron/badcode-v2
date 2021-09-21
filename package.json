@@ -4,6 +4,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "watch": "next-remote-watch",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prettier": "prettier --config .prettierrc --write \"**/*.{js,jsx,ts,tsx,json, mdx}\""

@@ -25,7 +25,7 @@ function Home(props: Props) {
   return (
     <>
       <div className="mb32">
-        <Heading.H2 text="Blog" className="mb12" />
+        <Heading.H2 text="Blog" className="mb-8" />
         <BlogsRenderer blogs={props.blogMetaData} />
       </div>
     </>

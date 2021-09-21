@@ -1,4 +1,6 @@
 import React from 'react';
+import Link from 'next/link';
+
 import Line from '../Line';
 import { Heading, LinkComponent } from '../Typography';
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
@@ -7,7 +9,11 @@ const Header = () => {
   return (
     <header className="mb64 pt32 pb32">
       <div className="flex justify-between">
-        <Heading.H1 text="Bad Code" className="mb12 w-28 bg-yellow-500" />
+        <Link href="/">
+          <a>
+            <Heading.H1 text="Bad Code" className="mb12 w-28 bg-yellow-500" />
+          </a>
+        </Link>
         <ThemeSwitcher />
       </div>
       <nav className="flex justify-between mb4">

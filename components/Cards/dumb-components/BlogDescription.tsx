@@ -8,7 +8,7 @@ type Props = {
 };
 
 function BlogDescription(props: Props) {
-  return <p className="text-18 lh-157 font-light">{props.description}</p>;
+  return <p className="text-18">{props.description}</p>;
 }
 
 export default React.memo(BlogDescription);
