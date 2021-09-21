@@ -15,10 +15,10 @@ pageTitle: "State updates in React"
 import { H1, H2, H3, H4, H5, H6 } from '../components/Typography/Heading';
 
 <div className="mb24">
-  <H1 text="State Updates in React" />
+  <H2 text="State Updates in React" />
 </div>
 
-<H2 className="mb-4" text="What is a state?" />
+<H3 className="mb-4" text="What is a state?" />
 
 
   A state is a data container that contains the data for a component throughout
@@ -142,7 +142,7 @@ function foo() {
   be performed efficiently.‌
 
 <div className="mb-4" />
-<H3 className="mb-4" text="But are all state updates batched?‌" />
+<H4 className="mb-4" text="But are all state updates batched?‌" />
 
   The answer is no.
   Only state updates inside a <span className="text-phrase">Synthetic event </span>
@@ -155,7 +155,7 @@ function foo() {
   is updated inside them.‌
 
 <div className="mb-4" />
-<H3 className="mb-4" text="What does this mean??" />
+<H4 className="mb-4" text="What does this mean??" />
 
   So if you run the above code then React will cause 2 re-renders of component one for updating the name and
   one for updating loading status and these updates won't be batched. But they still will be async.‌
