@@ -112,6 +112,10 @@ p {
   padding-bottom: 32px;
 }
 
+.main-content {
+  min-height: 50vh;
+}
+
 .container {
   max-width: 1024px;
   margin: 0 auto;
