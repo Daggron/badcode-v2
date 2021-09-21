@@ -9,7 +9,7 @@ export default function Footer() {
         &copy; {new Date().getFullYear()} by Abhay Sharma. All rights reserved.
       </p>
       <div className="flex">
-        <ul className="mr-32">
+        <ul className="mr-32 lh-169">
           <li>
             <LinkComponent type="internal" text="Home" href="/" />
           </li>
@@ -17,7 +17,7 @@ export default function Footer() {
             <LinkComponent type="internal" text="About" href="/about" />
           </li>
         </ul>
-        <ul>
+        <ul className="lh-169">
           <li className="">
             <LinkComponent
               type="external"
