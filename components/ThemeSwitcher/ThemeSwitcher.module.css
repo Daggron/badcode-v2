@@ -8,7 +8,6 @@
   font-size: 2rem;
   cursor: pointer;
   padding: 12px;
-  transform: all 1s ease-in-out;
   background-color: var(--theme-toggler-bg-color);
 }
 

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import Line from '../Line';
 import { Heading, LinkComponent } from '../Typography';
-import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
+import FeatureNavBar from '../FeatureNavBar/FeatureNavBar';
 
 const Header = () => {
   return (
@@ -14,7 +14,7 @@ const Header = () => {
             <Heading.H1 text="Bad Code" className="mb12 w-28 bg-yellow-500" />
           </a>
         </Link>
-        <ThemeSwitcher />
+        <FeatureNavBar />
       </div>
       <nav className="flex justify-between mb4">
         <ul className="flex">

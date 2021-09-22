@@ -1,10 +1,18 @@
 import React, { useEffect } from 'react';
 import { getTheme, switchTheme } from '../../utils/toggleTheme';
+import useSound from 'use-sound';
 
 import styles from './ThemeSwitcher.module.css';
 
-function ThemeSwitcher() {
+type Props = {
+  isMuted?: boolean;
+};
+
+function ThemeSwitcher(props: Props) {
   const [theme, setTheme] = React.useState('light');
+  const [play] = useSound('/click.mp3', {
+    volume: 0.25,
+  });
 
   useEffect(() => {
     const storedTheme = getTheme();
@@ -12,6 +20,9 @@ function ThemeSwitcher() {
   }, []);
 
   const toggleThemeHandler = () => {
+    if (!props.isMuted) {
+      play();
+    }
     switchTheme(theme);
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
@@ -21,7 +32,8 @@ function ThemeSwitcher() {
       <button
         className={`${styles.themeSwitch} ${styles.toggle}`}
         onClick={toggleThemeHandler}
-        aria-label="Toggle theme"
+        aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+        title={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -51,5 +63,9 @@ function ThemeSwitcher() {
     </div>
   );
 }
+
+ThemeSwitcher.defaultProps = {
+  isMuted: false,
+};
 
 export default ThemeSwitcher;

@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hooter {
+  fill: var(--svg-fill-color);
+  stroke: var(--link-hover-color);
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.soundLine {
+  stroke: var(--text-color-light);
+  transition: opacity 0.2s ease-in-out;
+}
+
+.button {
+  opacity: 1;
+  border-radius: 8px;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 12px;
+  background-color: var(--theme-toggler-bg-color);
+  display: flex;
+}
