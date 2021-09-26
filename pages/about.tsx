@@ -17,3 +17,13 @@ export default function AboutPage() {
     </>
   );
 }
+
+// export async function getServerSideProps() {
+//   const res = await getTopTracks();
+//   const tracks = await res.json();
+//   return {
+//     props: {
+//       tracks: tracks.items,
+//     },
+//   };
+// }

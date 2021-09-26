@@ -7,7 +7,7 @@ import SeoManager from '../../components/SeoManager/SeoManager';
 import { getAllPosts, getPostBySlug } from '../../utils/index';
 import { blogFrontMatter } from '../../types/blogfrontMatter';
 
-function BlogPosts(props: {source: any, frontMatter: blogFrontMatter }) {
+function BlogPosts(props: { source: any; frontMatter: blogFrontMatter }) {
   return (
     <>
       <SeoManager
@@ -29,8 +29,8 @@ export function getStaticPaths() {
   }));
   return {
     paths,
-    fallback: false
-  }
+    fallback: false,
+  };
 }
 
 export async function getStaticProps(pageData) {
