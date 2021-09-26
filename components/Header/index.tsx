@@ -11,21 +11,24 @@ const Header = () => {
       <div className="flex justify-between">
         <Link href="/">
           <a>
-            <Heading.H1 text="Bad Code" className="mb12 w-28 bg-yellow-500" />
+            <Heading.H1
+              text="Bad Code"
+              className="mb12 tracking-wider w-28 bg-yellow-500"
+            />
           </a>
         </Link>
         <FeatureNavBar />
       </div>
-      <nav className="flex justify-between mb4">
-        <ul className="flex">
-          <li className="mr12">
+      <nav className="md:flex justify-between mb4">
+        <ul className="grid grid-cols-4 grid-flow-col grid-rows-1 gap-4">
+          <li>
             <LinkComponent type="internal" text="Home" href="/" />
           </li>
           <li>
             <LinkComponent type="internal" text="About" href="/about" />
           </li>
         </ul>
-        <ul className="flex">
+        <ul className="flex justify-between">
           <li className="mr12">
             <LinkComponent
               type="external"
