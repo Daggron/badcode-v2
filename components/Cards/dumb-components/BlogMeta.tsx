@@ -14,7 +14,7 @@ type Props = {
 const BlogMeta = (props: Props) => (
   <>
     <Heading.H4
-      className="mb-1 heading text-32 font-medium"
+      className="mb-2 heading text-32 font-medium"
       text={props.title}
     />
     <p className="text-16 font-normal lh-157">{props.subtitle}</p>

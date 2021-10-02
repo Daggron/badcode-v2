@@ -5,8 +5,8 @@
 }
 
 .hooter {
-  fill: var(--svg-fill-color);
-  stroke: var(--link-hover-color);
+  fill: var(--link-color);
+  stroke: var(--link-color);
   opacity: 1;
   transition: opacity 1s ease-in-out;
 }
@@ -24,4 +24,5 @@
   padding: 12px;
   background-color: var(--theme-toggler-bg-color);
   display: flex;
+  align-items: center;
 }

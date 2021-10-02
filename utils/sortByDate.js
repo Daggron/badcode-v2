@@ -1,5 +1,11 @@
 const sortByDate = (data) => [...data].sort((a, b) => {
-  return new Date(b.data.date) - new Date(a.data.date);
+  if (
+    new Date(a.data.date).getFullYear() < new Date(b.data.date).getFullYear()
+  ) {
+    return 1;
+  }
+
+  return -1;
 });
 
 export default sortByDate;
