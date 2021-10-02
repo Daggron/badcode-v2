@@ -21,6 +21,6 @@
 
 
 .toggle svg {
+  stroke: var(--link-color);
   fill: var(--link-color);
-  stroke: var(--link-hover-color);
 }
