@@ -1,0 +1,143 @@
+---
+title: Units in CSS.
+subtitle: What are the different units in CSS and when to use them.
+date: "2021-02-10"
+src: ""
+slug: "units-in-css"
+description: "There are multiple units in css which we can use, but the question is when to\n
+use the them and what you can do with different units and how they can solve common problems\n
+faced while building a responsive UI for your webapp or website"
+tags: [css, react, web-development, css units, pixels, ems, rems, percentage, responsive ui]
+pageTitle: "Units in CSS"
+---
+
+import Image from 'next/image';
+import { LinkComponent } from '../components/Typography';
+import { CodeSandbox, CodePen } from 'mdx-embed'
+
+## Units in CSS
+
+As we know, there are multiple units in CSS which we can use, but the question is when to use the them and
+what you can do with different units and how they can solve common problems faced while building a responsive
+and accessible UI for your webapp or website.
+
+In this blog I am going to talk about the importance of different CSS units.
+. So without further-a-do, Let's start. Also this blog is a takeaway from <LinkComponent type="external" text=" Josh W Comeau's " href="https://joshwcomeau.com?ref=badcode" />
+course <LinkComponent type="external" text=" CSS for js dev " href="https://css-for-js.dev?ref=badcode" />
+
+<Image
+  src="/Portugal.webp"
+  alt=""
+  width="600"
+  height="400"
+  layout="responsive"
+/>
+
+<aside className="text-sm text-center">
+  Portugal image from &nbsp;
+  <LinkComponent
+    text="Unsplash"
+    href="https://unsplash.com/photos/jyLr7l-9_xM?ref=badcode"
+    type="external"
+  />
+</aside>
+
+### Pixels
+
+The most common unit related with size in CSS is **pixels**.
+
+```css
+.container {
+  width: 200px;
+  margin-bottom: 12px;
+  padding: 12px;
+  font-size: 16px;
+}
+```
+
+Pixel is the most used unit in CSS when it comes to size. This is more or less what you see
+on the screen and it is easy to understand. Most of the usecases of size can be solved by this
+and will work fine.
+
+### EMs
+
+The `em` unit is a relative unit, equal to the font size of the **current** element.
+
+If a heading has a font-size of 12px, and we give it a padding of `2em`,
+we can expect that the element will have 24px of padding around it (2 * 12px).
+
+You can use the code editor below and try changing the font-size of the `.text` in `style.css`
+and see how it works.
+
+<CodePen
+  codePenId="ExXJOzQ"
+  editable={true}
+  tabs={["css", "result"]}
+/>
+
+** How often I use ems? ** I never use them. It is very chaotic to use them in your
+application because they are relative to the current elements font size. And if I decide
+to change my font-size by 2px the other properties which use `em` will get affected and then
+have to change the value of `em` to get them set again. So an extra work is required which i
+don't want to do.
+
+### REMs
+
+The `rem` unit is also a relative unit, but it is different from `em` in that it is relative to the
+font-size of the root element, the `html` tag.
+
+All of the rems in your app will be relative to the `html` tag. By default the `html` tag has a font-size of 16px.
+So 1rem will be equal to 16px.
+
+Here i have given an example for you to play with so you can understand how rem works.
+**Try changing the font-size of the html element**
+
+<CodePen
+  editable={true}
+  codePenId="QWgPJoN"
+  tabs={["css", "result"]}
+/>
+
+See how the text scales accordingly, when the font-size of the `html` tag is changed.
+That's why the people like the rem unit. No matter where the an element is in the DOM tree,
+the rem is consistent.
+
+Also Please don't change the font-size of the `html` tag. This will override the users default font
+size selected in their browser. We are using it here to demonstrate how rem works.
+
+So how this makes our app accessible. So if a person has poor vision, they may wish to increase
+the font size.
+
+So there are two ways by which the user can do that.
+
+1. By changing the browser zoom using `Ctrl + ` or `Cmd +`. This scales everything in your app and is
+akin to changing the display resolution.
+
+2. They can set the default font-size to larger font-size in their browser settings, for e.g. to
+20px and 24px.
+
+The first option — zooming in and out — will work regardless of which units you use;
+it scales everything according to a ratio, so if you want the site to be 20% bigger,
+that will always work.
+
+The second option only works with em or rem units, since it works by changing the
+default font size of the page.
+
+On the one hand, we can breathe a little easier knowing that users can always increment
+font size if they wish. But we can't shrug off this concern entirely; zooming in and out
+is a pain. Every website has a different font size, which means users constantly need to
+fiddle with the zoom level. If we respected their default font size, they wouldn't have
+to make tweaks on a per-site basis.
+
+### Matter of fact
+
+So all these units have their own benefits and disadvantages. Here is how I would use them.
+
+- For typography, I would use `rem` because it has accessibility benefits.
+
+- For spacing, I would use `px` because it's more intuitive than rem, and there isn't a
+clear accessibility win.
+
+- For width and height, I will use either `px` or `%` depending upon whether I need a fix size or
+a relative size
+
