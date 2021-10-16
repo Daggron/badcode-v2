@@ -16,6 +16,8 @@ Make sure the following are installed on the system:
 npm i
 ```
 
+> **NOTE** since npm version 7 it tries to install all peer dependencies. So for normal npm i behaviour please do `npm i --legacy-peer-deps` if you are using npm v7 or greater 
+
 ### Starting the development server
 
 ```
