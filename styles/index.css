@@ -172,15 +172,21 @@ p {
 
 .content ul {
   list-style: disc;
+  margin-left: 1.5rem;
 }
 
 .content ol {
   list-style: decimal;
+  margin-left: 1.5rem;
 }
 
 .content pre {
   font-size: 1rem;
   line-height: 1.5;
+}
+
+figcaption {
+  text-align: center;
 }
 
 @media screen and (min-width: 768px) {
