@@ -13,8 +13,8 @@ This is my personal blog webapp to share knowledge on different web development 
 ## Running Locally
 
 ```bash
-$ git clone https://github.com/imshubhamsingh/shubham.sh.git
-$ cd shubham.sh
+$ git clone https://github.com/Daggron/badcode-v2.git
+$ cd badcode-v2
 $ npm install
 $ npm run dev
 ```
