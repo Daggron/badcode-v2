@@ -18,7 +18,7 @@ export default function FouroFour() {
         spelled something wrong. Can you double check that URL?
       </p>
       <Link href="/">
-        <a className={styles.button}>Return Home</a>
+        <a className={styles.linkButton}>Return Home</a>
       </Link>
     </>
   );
