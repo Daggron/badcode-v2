@@ -9,9 +9,9 @@ type BlogPostMeta = {
     date: string;
     description: string;
     slug: string;
-    tags?: string[];
+    tags: string[];
     author?: string;
-    src?: string;
+    src: string;
     pageTitle: string;
   };
   filePath: string;

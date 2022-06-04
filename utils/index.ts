@@ -23,7 +23,7 @@ export function getPostBySlug(slug: string) {
   const posts = getAllPosts();
   const post = posts.find((eachPost) => eachPost.data.slug === slug);
   const { content, data } = matter(
-    fs.readFileSync(path.join(POST_PATH, `${post.filePath}`), 'utf8'),
+    fs.readFileSync(path.join(POST_PATH, `${post?.filePath}`), 'utf8'),
   );
   return {
     content,

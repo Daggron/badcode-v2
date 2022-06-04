@@ -1,7 +1,7 @@
 // import fetch from 'isomorphic-unfetch';
 
 import HomePage from '../scenes/HomePage/Home';
-import { blogPostData } from '../types/blogfrontMatter';
+import { BlogPostData } from '../types/blogfrontMatter';
 
 import sortByDate from '../utils/sortByDate';
 import { getAllPosts } from '../utils';
@@ -9,7 +9,7 @@ import SeoManager from '../components/SeoManager/SeoManager';
 
 import metaData from '../data/metaData';
 
-export default function Index(props: { posts: blogPostData[] }) {
+export default function Index(props: { posts: BlogPostData[] }) {
   return (
     <>
       <SeoManager
@@ -27,8 +27,8 @@ export default function Index(props: { posts: blogPostData[] }) {
 }
 
 export async function getStaticProps() {
-  const allPosts = getAllPosts() as blogPostData[];
-  const postsSortedByDate = sortByDate(allPosts) as blogPostData[];
+  const allPosts = getAllPosts() as BlogPostData[];
+  const postsSortedByDate = sortByDate(allPosts) as BlogPostData[];
   return {
     props: {
       posts: postsSortedByDate,

@@ -1,13 +1,14 @@
 import React from 'react';
+import { GetStaticProps } from 'next';
 import { serialize } from 'next-mdx-remote/serialize';
 
 import BlogPost from '../../scenes/BlogPost/BlogPost';
 import SeoManager from '../../components/SeoManager/SeoManager';
 
 import { getAllPosts, getPostBySlug } from '../../utils/index';
-import { blogFrontMatter } from '../../types/blogfrontMatter';
+import { BlogFrontMatter } from '../../types/blogfrontMatter';
 
-function BlogPosts(props: { source: any; frontMatter: blogFrontMatter }) {
+function BlogPosts(props: { source: any; frontMatter: BlogFrontMatter }) {
   return (
     <>
       <SeoManager
@@ -33,8 +34,8 @@ export function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(pageData) {
-  const postData = getPostBySlug(pageData.params.slug);
+export const getStaticProps: GetStaticProps = async (pageData) => {
+  const postData = getPostBySlug(pageData.params?.slug as string);
   const mdxSource = await serialize(postData.content, {
     mdxOptions: {
       remarkPlugins: [
@@ -56,6 +57,6 @@ export async function getStaticProps(pageData) {
       frontMatter: postData.data,
     },
   };
-}
+};
 
 export default BlogPosts;

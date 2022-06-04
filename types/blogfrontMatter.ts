@@ -3,8 +3,8 @@ export type BlogFrontMatter = {
   date: string;
   slug: string;
   subtitle: string;
-  src?: string;
-  tags?: string[];
+  src: string;
+  tags: string[];
   description: string;
   pageTitle: string;
 };

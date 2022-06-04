@@ -9,12 +9,7 @@ type Props = {
 
 /**
  * renderer function to render an array of blogs
- *
- * @param {Props} props - props to be passed to the component
- * @param {blogFrontMatter[]} props.blogs - array of blogs to be rendered
- * @returns {React.ReactComponent} - returns a react component
  */
-
 function BlogsRenderer(props: Props) {
   return (
     <>

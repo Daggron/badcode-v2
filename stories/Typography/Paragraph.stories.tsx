@@ -3,13 +3,9 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { Paragraph } from '../../components/Typography';
 
-export const Template: ComponentStory<typeof Paragraph> = ({
-  children,
-  fontMedium,
-}: {
-  children: React.ReactNode;
-  fontMedium: boolean;
-}) => <Paragraph fontMedium={fontMedium}>{children}</Paragraph>;
+export const Template: ComponentStory<typeof Paragraph> = (args) => (
+  <Paragraph fontMedium={args.fontMedium}>{args.children}</Paragraph>
+);
 
 export default {
   title: 'Typography/Paragraph',
