@@ -2,14 +2,12 @@ const sortByDate = (data) => [...data].sort((a, b) => {
   const dateOne = new Date(a.data.date);
   const dateTwo = new Date(b.data.date);
 
-  console.log(dateOne, dateTwo);
-
   if (dateOne.getFullYear() > dateTwo.getFullYear()) {
-    return 1;
+    return -1;
   }
 
   if (dateOne.getFullYear() < dateTwo.getFullYear()) {
-    return -1;
+    return 1;
   }
 
   if (dateOne.getFullYear() === dateTwo.getFullYear()) {

@@ -1,0 +1,343 @@
+---
+title: TypeSafety with JSDocs.
+subtitle: How we can achieve typesafety with JSDocs between typescript and javascript code.
+date: "2022-06-04"
+src: ""
+slug: "typesafety-with-jsdocs"
+description: "Javascript is an untyped language, and writing code in a type safe manner in javascript although possible, is too much effort, especially without any tooling, and with a growing team with diverse set…"
+tags: ["javascript", "typescript", "jsdocs", "typesafety", "react", "web-development"]
+pageTitle: "Type safety with JSDocs"
+---
+
+import Image from 'next/image';
+import { LinkComponent } from '../components/Typography'
+import { CodeSandbox } from 'mdx-embed'
+
+## Type safety with JSDocs
+
+<Image
+  src="/Portugal.webp"
+  alt=""
+  width="600"
+  height="400"
+  layout="responsive"
+  placeholder="blur"
+  blurDataURL="/Portugal-blur.jpg"
+/>
+
+### Overview
+
+Javascript is an untyped language, and writing code in a type safe manner in javascript although possible, is too much effort, especially without any tooling, and with a growing team with diverse set of developers, each one having their own best practices. There are multiple ways to write type safe code in javascript, like runtime validations or using flow for static typing, but typescript adoption is way ahead in the js developer community, and for good reason. Typescript works well out of the box with vscode, which is the default IDE of choice for a lot of developers, and has low entry barrier, you can adopt it piece by piece, and do not need to commit to changing all your code to typescript. Typescript is really good at automatic inferrence as well, but it can only guess as much. In this article, we are going to talk about one of the scenarios where typescript auto inference isn't enough, and you would want to provide explicit types. JSDoc is our tool of choice for interoperability between js and ts, and we are going to discuss that as a potential solution in this case.
+
+### Background
+
+At smallcase, we are currently in the process of <LinkComponent type="external" href="https://link.medium.com/dplUAQxAinb" text="migrating our codebases to typescript" /> for better compile time type safety. Since we do not have bandwidth to convert everything to ts at once and since typescript allows us to do this piece by piece, so at any point in time, the codebase has some ts files which are importing js files. In most cases, vscode and typescript do a good job of auto inferring types from these js files and showing appropriate intellisense in the ts files, but there are some scenarios where as a developer you need to be more explicit about types and can't rely on auto inference.
+
+### An example
+
+Let's walk through an example to understand where typescript auto inference is not the best.
+
+Consider the below code in a javascript file:
+
+```jsx
+//investMore.js
+
+export function getInvestMoreComposition(smallcaseConstituents, prices) {
+  let totalCashFlow = 0;
+  let weightage = {};
+  smallcaseConstituents.forEach((stock) => {
+    totalCashFlow += stock.shares * prices[stock.sid].price;
+  });
+
+  smallcaseConstituents.forEach((stock) => {
+    weightage = {
+      ...weightage,
+      [stock.sid]: {
+        weight: (stock.shares * prices[stock.sid].price) / totalCashFlow,
+      },
+    };
+  });
+
+  return {
+    weightage,
+    totalCashFlow,
+  };
+}
+```
+
+This is a pure function written in a JS file. if we try to call this function in a typescript file, then typescript will infer types like this:
+
+- `totalCashFlow` is being inferred correctly as a `number`
+- But `weightage` is being inferred as an empty object **[Problem 1]**
+
+<br />
+<CodeSandbox codeSandboxId="inspiring-napier-v5nev8?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.ts&theme=dark&view=editor" />
+
+Let's change the code a little bit:
+
+```jsx
+// investMore.js
+
+export function getInvestMoreComposition(smallcaseConstituents, prices) {
+  let totalCashFlow;
+  let weightage = {};
+  
+  if (smallcaseConstituents.length) {
+    smallcaseConstituents.forEach((stock) => {
+    totalCashFlow += stock.shares * prices[stock.sid].price;
+  });
+
+	  smallcaseConstituents.forEach((stock) => {
+	    weightage = {
+	      ...weightage,
+	      [stock.sid]: {
+	        weight: (stock.shares * prices[stock.sid].price) / totalCashFlow,
+	      },
+	    };
+	  });
+   } else {
+		totalCashFlow = null;
+   }
+  return {
+    weightage,
+    totalCashFlow,
+  };
+}
+```
+
+We have just added a condition which can lead to `totalCashFlow` being null. This is how typescript infers the types now:
+
+- totalCashFlow is being inferred as `null | undefined`, although the correct type is `number | null`  **[Problem 2]**
+- weightage is still being inferred as an empty object, which is expected as we did not change any handling related to weightage.
+
+<br />
+<CodeSandbox codeSandboxId="xenodochial-carlos-tcp0uz?fontsize=14&hidenavigation=1&initialpath=%2Findex&module=%2Fsrc%2Findex.ts&theme=dark&view=editor" />
+
+Since `weightage` is inferred as an empty object, there is no auto completion when you try to access the properties of the weightage object.Even TS won’t throw an error if you are accessing a property which is not available. **[Problem 3]**
+
+Similar things happen with the arguments of the function, Typescript treats them as any and won’t lead to compile time errors if you send anything to such functions. **[Problem 4]**
+
+Take a look this example below. 
+
+The function `getInvestMoreComposition` expects an array of object like this  
+
+```jsx
+{ sid: 'REL', shares: 2 }
+```
+
+But since there are no type definitions for this function you can send anything and typescript won’t complain.
+
+No errors being thrown here even if we are sending an array of numbers.
+
+So these are some misses which typescript do when you try to use a function from plain javascript file.
+
+<br />
+<CodeSandbox codeSandboxId="xenodochial-carlos-tcp0uz?fontsize=14&hidenavigation=1&module=%2Fsrc%2Ftest.ts&theme=dark&view=editor" />
+
+#### How to solve this
+
+One convenient way to solve this is using <LinkComponent text="JSDOC" type="external" href="https://jsdoc.app/" /> comments to annotate our pure javascript function. vscode intellisense works great out of the box with JSDOC comments, it is able to derive type information from these comments, and can help you by autosuggesting the function arguments or object proeprties, very similar to how you would expect typescript suggestions to work. You can read more about this [here](https://medium.com/geekculture/using-jsdoc-to-enable-intellisense-for-render-props-in-vscode-e655ae4e64c1)
+
+Take a look at this example with JSDoc comments:
+
+```jsx
+/**
+ *
+ * @param {{sid: string, shares: number}[]} smallcaseConstituents
+ * @param {{[sid: string]:{price: number}}} prices
+ * @returns {{ weightage: { [sid: string]: { weight: number } }, totalCashFlow: number }}
+ */
+export function getInvestMoreComposition(smallcaseConstituents, prices) {
+  let totalCashFlow = 0;
+  let weightage = {};
+  smallcaseConstituents.forEach((stock) => {
+    totalCashFlow += stock.shares * prices[stock.sid].price;
+  });
+
+  smallcaseConstituents.forEach((stock) => {
+    weightage = {
+      ...weightage,
+      [stock.sid]: {
+        weight: (stock.shares * prices[stock.sid].price) / totalCashFlow,
+      },
+    };
+  });
+
+  return {
+    weightage,
+    totalCashFlow,
+  };
+}
+```
+
+Here we have used regular JSDOC for mentioning the the argument types and return type of the functions and see what happens now. TS has inferred the return type correctly and also the function arguments are inferred correctly.
+
+<br />
+<CodeSandbox codeSandboxId="wizardly-franklin-6u5mej?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.ts&theme=dark&view=editor" />
+
+The return type of the function is now an object of objects with weight as property of type number. Now TS will help you when you are trying to access this `weight` property of the weight object and will throw error if you perform any action which is not possible on number type.
+
+<br />
+<CodeSandbox codeSandboxId="wizardly-franklin-6u5mej?fontsize=14&hidenavigation=1&module=%2Fsrc%2Futils.ts&theme=dark&view=editor" />
+
+As you can see now VS code intellisense and typescript has inferred the types from the JSDOC comment and now we are assured of the proper usage and have better type safety and a better DX while code.
+
+vscode is able to autosuggest object property access from the weightage object **[Solution 4]**
+
+### But there are still some problems:
+
+- Sharing JSDoc types is an issue: The types can’t be shared with `typescript directly`. Say these types are common across the codebase and can be used at any place, since these are only jsdoc supported types and are a comment only they can’t be used in any other place on the platform where i want to. What I mean here is you can reuse the common JSDOC type only with JSDOC comments and not with Typescript. Consider this example, Here I am writing the types using JSDOC for an object `weightage`. The structure of the object is like
+
+```json
+{weights: 0.5 }
+```
+
+Types will be written like this for this object using JSDOC
+
+```jsx
+	// types.js
+/**
+* @typedef {Object} Weightage - Weightage object properties
+* @property {number} weights - weights of the particular stock in portfolio.
+*/
+```
+
+Now I can use these types in  any JSDOC comments by importing it like this
+
+```jsx
+// utils.js
+
+/**
+* @param {import('~/types').Weightage} - weightage object of the investments
+*/
+function getTotalCashFlow(weightage) {
+	// ... function logic here
+}
+```
+
+This is good, You can share the types across the JSDOC comments, But what is not good is I can't use this type in a TS file present in my codebase which use the same type . Consider this we have an another file which is in TS and that file contains a function `getSharesFromWeightage` and expect same `weightage` argument whose types are declared above.
+
+```tsx
+function getSharesFromWeightage(weightage: ) { // can't use the JSDOC here 
+
+}
+
+// Or in this case
+// If i want to extend weightage to orderconfig interface then
+// i will have to create weightage as interface in a .ts file
+interface OrderConfig extends Weightage { 
+
+}
+```
+
+
+Using JSDOC in TS file for function parameters don't help as in TS file the inference from JSDOC don't work as ts expect you to mention types in a ts file. If you use JSDOC in ts file for inferring the function arguments ts won't do it and will treat them as any and throw an error.
+
+Now i have to write types again and then if some change happens I have to change at multiple places, which is not a good thing to do as some places may be left out and since they are using their own types the typescript won't show a problem with code their. 
+
+- Syntax errors are not caught: Reusing these types is not easy and don't have good DX. Since these are comments there is no VS code complaining about bracket not closed or you are writing the syntax wrong, if the syntax is wrong the above mentioned problems will happen.
+- It is difficult to write complex types in JSDoc comments like this.
+
+### Typescript to the rescue, again
+
+Typescript interfaces can be used within JSDOC comments to write types instead of the existing JSDoc types. For e.g. if we re-consider the above example with typescript
+
+```tsx
+// types.ts
+
+export interface Prices {
+  [sid: string]: {
+    price: number;
+  };
+}
+
+export interface Weightage {
+  [key: string]: {
+    /**
+     * the weightage of the stock
+     */
+    weight: number;
+  };
+}
+
+export interface InvestMoreComposiiton {
+	weightage: { 
+	[sid: string]: { weight: number }
+ };
+ totalCashFlow: number
+}
+```
+
+```jsx
+// investMore.js
+
+/**
+ *
+ * @param {import('./types').Weightage} smallcaseConstituents
+ * @param {import('./types').Prices} prices
+ * @returns {import('./types').InvestMoreComposiiton}
+ */
+export function getInvestMoreComposition(smallcaseConstituents, prices) {
+  let totalCashFlow = 0;
+  let weightage = {};
+  smallcaseConstituents.forEach((stock) => {
+    totalCashFlow += stock.shares * prices[stock.sid].price;
+  });
+
+  smallcaseConstituents.forEach((stock) => {
+    weightage = {
+      ...weightage,
+      [stock.sid]: {
+        weight: (stock.shares * prices[stock.sid].price) / totalCashFlow,
+      },
+    };
+  });
+
+  return {
+    weightage,
+    totalCashFlow,
+  };
+}
+```
+
+- This solves our major problem of re-using types. Since the types are now coming from the Typescript interface it can be used in other ts files for defining types. But the major benefit here is type reusability and if types need to be updated they can be updated at a single place and JS file will also support them.
+- It is much easier to write complex types with interfaces than in JSDOC
+- These types are easy to write because its TS and VScode will complain of you write the syntax wrong.
+
+#### What Not to Do
+
+- Please don't use any or * in JSDOC comments these are treated as any types and has no benefit of using typed system.
+- Please don't do typecasting in ts for JS functions. Typecasting is not actually solving these JS and TS problems but they are just avoiding the warning of typescript.
+
+#### Drawbacks of using this approach
+
+Not all tags of JSDOC are supported by typescript. 
+
+TypeScript ignores any unsupported JSDoc tags.
+
+The following tags have open issues to support them:
+
+- `@const` (<LinkComponent type="external" text="issue #19672" href="https://github.com/Microsoft/TypeScript/issues/19672" />)
+- `@inheritdoc` (<LinkComponent type="external" text="issue #23215" href="https://github.com/Microsoft/TypeScript/issues/23215" />)
+- `@memberof` (<LinkComponent type="external" text="issue #7237" href="https://github.com/Microsoft/TypeScript/issues/7237" />)
+- `@yields` (<LinkComponent type="external" text="issue #23857" href="https://github.com/Microsoft/TypeScript/issues/23857" />)
+
+#### Type checking happens inside the IDE, but would it happen if you run tsc
+
+The answer is **YES.**
+
+**Tsc** also recognises this syntax and will perform type-checking when build is being generated or being compiled.
+
+### Conclusion
+
+We have discussed some of the problems with typescript auto inference when using Javascript code in typescript file and how you can solve them
+
+- The first preference is to convert the `js` code to typescript.
+- But if that is not possible due to some reason, the second preference is to use `JSDOC` comment with typescript interfaces to solve the type safety issues for the functions which are required in that particular case.
+
+### References:
+
+- [https://www.typescriptlang.org/docs/handbook/type-checking-javascript-files.html](https://www.typescriptlang.org/docs/handbook/type-checking-javascript-files.html)
+- [https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html)
+- [https://medium.com/geekculture/using-jsdoc-to-enable-intellisense-for-render-props-in-vscode-e655ae4e64c1](https://medium.com/geekculture/using-jsdoc-to-enable-intellisense-for-render-props-in-vscode-e655ae4e64c1)
+- [https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html#unsupported-tags](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html#unsupported-tags)
