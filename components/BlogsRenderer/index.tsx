@@ -1,10 +1,10 @@
 import React from 'react';
-import { BlogCard } from "../Cards";
-import { blogPostData } from "../../types/blogfrontMatter";
 import Link from 'next/link';
+import { BlogCard } from '../Cards';
+import { BlogPostData } from '../../types/blogfrontMatter';
 
 type Props = {
-  blogs: blogPostData[];
+  blogs: BlogPostData[];
 };
 
 /**
@@ -21,12 +21,12 @@ function BlogsRenderer(props: Props) {
       {props.blogs.map(({ data: blog }) => (
         <div className="mb24" key={blog.slug}>
           <Link href={`/blog/${blog.slug}`}>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a>
               <BlogCard
                 title={blog.title}
                 subtitle={blog.subtitle}
                 description={blog.description}
-                src={blog.src}
               />
             </a>
           </Link>

@@ -14,8 +14,8 @@ export default function Description() {
         scale my career. I am a admirer of Japanese work ethic and I am always
         fascinated by the Japanese quote{' '}
         <span className="font-medium text-phrase">
-          He who drinks does not know the dangers of wine, He who doesn't drink
-          does not know its benefits.
+          He who drinks does not know the dangers of wine, He who doesn&apos;t
+          drink does not know its benefits.
         </span>
         <span>
           The meaning of this quote is{' '}

@@ -1,9 +1,4 @@
-export type blogPostData = {
-  data: blogFrontMatter,
-  filePath: string,
-}
-
-export type blogFrontMatter = {
+export type BlogFrontMatter = {
   title: string;
   date: string;
   slug: string;
@@ -12,4 +7,9 @@ export type blogFrontMatter = {
   tags?: string[];
   description: string;
   pageTitle: string;
-}
+};
+
+export type BlogPostData = {
+  data: BlogFrontMatter;
+  filePath: string;
+};

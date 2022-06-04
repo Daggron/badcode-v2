@@ -7,14 +7,13 @@ export default function FeatureNavBar() {
 
   useEffect(() => {
     const muteStatus = localStorage.getItem('isMuted');
-    const isMuted = muteStatus === 'true';
-    setIsMuted(isMuted);
+    setIsMuted(muteStatus === 'true');
   }, []);
 
-  function toggleSound() {
+  const toggleSound = () => {
     setIsMuted(!isMuted);
     window.localStorage.setItem('isMuted', String(!isMuted));
-  }
+  };
 
   return (
     <div className="flex items-center">

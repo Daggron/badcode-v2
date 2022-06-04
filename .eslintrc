@@ -1,10 +1,9 @@
 {
   "extends": [
+    "airbnb",
     "airbnb-typescript",
     "airbnb/hooks",
-    "prettier",
-    "prettier/react",
-    "prettier/@typescript-eslint"
+    "prettier"
   ],
   "plugins": ["prettier"],
   "parserOptions": {
@@ -68,13 +67,5 @@
   "env": {
     "browser": true,
     "jest": true
-  },
-  "settings": {
-    "import/resolver": {
-      "alias": {
-        "map": [["~", "./src"]],
-        "extensions": [".ts", ".js", ".jsx", ".tsx", ".json"]
-      }
-    }
   }
 }
