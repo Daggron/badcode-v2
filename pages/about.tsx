@@ -7,7 +7,7 @@ export default function AboutPage() {
   return (
     <>
       <SeoManager
-        pageTitle={'Bad Code | About me'}
+        pageTitle="Bad Code | About me"
         title={metaData.title}
         description={metaData.description}
         tags={metaData.tags}

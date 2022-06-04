@@ -1,5 +1,4 @@
 import SeoManager from '../components/SeoManager/SeoManager';
-import { Heading } from '../components/Typography';
 import metaData from '../data/metaData';
 import FouroFour from '../scenes/404/FouroFour';
 
@@ -9,7 +8,7 @@ export default function Page404() {
       <SeoManager
         pageTitle="404"
         title="404"
-        description={`404 page not found`}
+        description="404 page not found"
         tags={metaData.tags}
         slug="/"
       />

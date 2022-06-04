@@ -1,14 +1,9 @@
-import LinkComponent from '../../components/Typography/Links/index'
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import LinkComponent from '../../components/Typography/Links/index';
 
-export const Template = ({type, text, href}) => {
-  return (
-    <LinkComponent
-      type={type}
-      text={text}
-      href={href}
-    />
-  )
-};
+export const Template: ComponentStory<typeof LinkComponent> = (args) => (
+  <LinkComponent text={args.text} type={args.type} href={args.href} />
+);
 
 export default {
   title: 'Typography/Link',
@@ -16,7 +11,7 @@ export default {
   argTypes: {
     type: {
       options: ['internal', 'external'],
-      control: {type: 'radio' },
+      control: { type: 'radio' },
     },
     text: {
       control: 'text',
@@ -29,5 +24,5 @@ export default {
     type: 'internal',
     text: 'Link',
     href: 'https://www.google.com',
-  }
-}
+  },
+} as ComponentMeta<typeof LinkComponent>;

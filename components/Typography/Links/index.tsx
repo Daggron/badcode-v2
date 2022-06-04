@@ -40,7 +40,8 @@ export default function LinkComponent({
     case 'internal':
       return (
         <Link href={href}>
-          <a className={className} aria-label={ariaLabel ? ariaLabel : text}>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a className={className} aria-label={ariaLabel || text}>
             {text}
           </a>
         </Link>
@@ -52,7 +53,7 @@ export default function LinkComponent({
           target="_blank"
           rel="noreferrer noopener"
           className={className}
-          aria-label={ariaLabel ? ariaLabel : text}
+          aria-label={ariaLabel || text}
         >
           {text}
         </a>

@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
-import { getTheme, switchTheme } from '../../utils/toggleTheme';
 import useSound from 'use-sound';
+import { getTheme, switchTheme } from '../../utils/toggleTheme';
 
 import styles from './ThemeSwitcher.module.css';
 
 type Props = {
+  /**
+   * whether the sound is muted or not.
+   */
   isMuted?: boolean;
 };
 
@@ -34,6 +37,7 @@ function ThemeSwitcher(props: Props) {
         onClick={toggleThemeHandler}
         aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
         title={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+        type="button"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

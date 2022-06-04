@@ -27,6 +27,7 @@ function ToggleSound(props: Props) {
       aria-label={props.isMuted ? 'Enable Sound' : 'Mute Sound'}
       className={styles.button}
       onClick={toggleSound}
+      type="button"
     >
       <svg width="32" height="32" viewBox="0 0 18 18" fill="none">
         <path

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { memo } from 'react';
 import BlogDescription from './dumb-components/BlogDescription';
 import BlogMeta from './dumb-components/BlogMeta';
 
@@ -14,17 +14,9 @@ type Props = {
    */
   subtitle: string;
   /**
-   * blog post related with the field 
-   */
-  tags?: string;
-  /**
-   * description of the card 
+   * description of the card
    */
   description: string;
-  /**
-   * src of the image related with the card
-   */
-  src?: string;
 };
 
 function BlogCard(props: Props) {
@@ -40,9 +32,4 @@ function BlogCard(props: Props) {
   );
 }
 
-BlogCard.defaultProps = {
-  src: null,
-  tags: null,
-};
-
-export default React.memo(BlogCard);
+export default memo(BlogCard);
