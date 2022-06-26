@@ -2,10 +2,10 @@ const metaData = {
   pageTitle: 'Bad Code | Home',
   title: 'A Web development blog by Abhay Sharma',
   canonical: 'https://badcode.dev',
-  tags: 'Frontend Development, React.js, Javascript, State Management, Html, css',
+  tags: 'Frontend Development, React.js, Javascript, State Management, Html, css, engineering, frontend, svelte, vue',
   siteName: 'Bad Code',
   description:
-    'This is a personal blog related with web development, created by Abhay Sharma to share knowledge, views, experiences found through exploring the vast land of web development',
+    'A blogging website to share the knowledge and experiences of web development',
   openGraph: {
     image: {
       url: 'https://badcode.dev/cover.png',

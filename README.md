@@ -10,6 +10,10 @@ This is my personal blog webapp to share knowledge on different web development 
   - `index` - Home page
   - `[slug]` - Page for the blogs
 
+## Things To Do
+
+- Explore the next js layouts setup
+
 ## Running Locally
 
 ```bash
